@@ -1,0 +1,4 @@
+5560hw2/data/
+**/__pycache__/
+*.tar.gz
+.DS_Store
