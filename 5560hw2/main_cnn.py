@@ -16,7 +16,7 @@ model = get_model("CNN")           # 或 "EnhancedCNN"
 criterion = nn.CrossEntropyLoss()
 optimizer = optim.Adam(model.parameters(), lr=1e-3, weight_decay=5e-4)
 
-model = train_model(model, train_loader, criterion, optimizer, device=device, epochs=10)
+model = train_model(model, train_loader, criterion, optimizer, device=device, epochs=5)
 test_loss, test_acc = evaluate_model(model, test_loader, criterion, device=device)
 print(f"Test loss={test_loss:.4f} acc={test_acc:.4f}")
 
@@ -29,3 +29,7 @@ save_model(model, path="./artifacts/cnn_best.pt")
 
 # 显示预测结果
 visualize_predictions(model_path="./artifacts/cnn_best.pt")
+
+if __name__ == "__main__":
+    # 这里放你现在的训练 + 评估 + save_model + 可视化
+    pass
