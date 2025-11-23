@@ -11,9 +11,7 @@ from helper_lib.diffusion_generator import DiffusionGenerator
 from helper_lib.ebm_generator import EBMGenerator
 
 
-# ===============================
-# GLOBAL CONFIG
-# ===============================
+
 
 CLASSES = [
     'airplane','automobile','bird','cat','deer',
@@ -30,9 +28,7 @@ DEVICE = (
 
 app = FastAPI(title="Unified CIFAR10 + Diffusion + EBM API")
 
-# ===============================
-# ROOT
-# ===============================
+
 @app.get("/")
 def root():
     return {
@@ -44,17 +40,13 @@ def root():
         }
     }
 
-# ===============================
-# HEALTH CHECK
-# ===============================
+
 @app.get("/health")
 def health():
     return {"status": "ok", "device": DEVICE}
 
 
-# ===============================
-# Load CNN model for classification
-# ===============================
+
 cnn_model = None
 
 tfm = transforms.Compose([
@@ -81,9 +73,7 @@ def load_cnn_model():
 
     print(f"✅ Loaded SimpleCNN on {DEVICE}")
 
-# ============================================================
-# 1. CNN Classification Endpoint
-# ============================================================
+
 
 @app.post("/classify")
 async def classify(file: UploadFile = File(...)):
@@ -109,17 +99,13 @@ async def classify(file: UploadFile = File(...)):
     }
 
 
-# ============================================================
-# 2. Image Generation Endpoint (Diffusion / EBM)
-# ============================================================
+
 
 @app.get("/generate")
 def generate(model: str = Query(..., description="diffusion / ebm")):
     model = model.lower()
 
-    # ---------------------------------------------------------
-    # Diffusion (Tiny-UNet)
-    # ---------------------------------------------------------
+
     if model == "diffusion":
         print("🌀 Generating samples using Tiny-UNet diffusion...")
 
@@ -147,9 +133,7 @@ def generate(model: str = Query(..., description="diffusion / ebm")):
 
         return FileResponse(out_path, media_type="image/png")
 
-    # ---------------------------------------------------------
-    # Energy-Based Model (EBM)
-    # ---------------------------------------------------------
+
     elif model == "ebm":
         print("⚡ Generating samples using EBM...")
 
@@ -174,8 +158,6 @@ def generate(model: str = Query(..., description="diffusion / ebm")):
 
         return FileResponse(out_path, media_type="image/png")
 
-    # ---------------------------------------------------------
-    # Invalid
-    # ---------------------------------------------------------
+
     else:
         raise HTTPException(400, "Invalid model. Choose: diffusion / ebm.")
