@@ -1,0 +1,23 @@
+[project]
+name = "cnn_api"
+version = "0.1.0"
+description = "CIFAR-10 CNN FastAPI + Docker project"
+authors = [
+  { name = "Zhenxiao Luo", email = "zl3530@columbia.edu" }
+]
+requires-python = ">=3.10"
+
+dependencies = [
+  "torch",
+  "torchvision",
+  "fastapi",
+  "uvicorn",
+  "pillow",
+  "numpy",
+  "matplotlib",
+  "python-multipart"
+]
+
+[build-system]
+requires = ["setuptools", "wheel"]
+build-backend = "setuptools.build_meta"
