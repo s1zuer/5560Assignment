@@ -9,9 +9,6 @@ from torchvision import datasets, transforms
 from helper_lib.model import SimpleEBM
 
 
-# ============================================================
-# 超参数（已经验证稳定）
-# ============================================================
 
 BATCH_SIZE = 128
 EPOCHS = 5
@@ -28,9 +25,6 @@ DEVICE = (
 )
 
 
-# ============================================================
-# 1. CIFAR-10 Loader
-# ============================================================
 
 def get_cifar10_loader():
     transform = transforms.Compose([
@@ -48,9 +42,7 @@ def get_cifar10_loader():
                       shuffle=True, num_workers=2)
 
 
-# ============================================================
-# 2. Langevin Dynamics（生成负样本）
-# ============================================================
+
 
 def sample_negatives(model, n, device):
     """
@@ -81,9 +73,7 @@ def sample_negatives(model, n, device):
     return x.detach()
 
 
-# ============================================================
-# 3. 训练 EBM
-# ============================================================
+
 
 def train_ebm():
     print(f"[INFO] Training Energy-Based Model on {DEVICE}")
@@ -122,9 +112,7 @@ def train_ebm():
     print("[INFO] Saved to ./artifacts/ebm.pth")
 
 
-# ============================================================
-# 4. 主入口
-# ============================================================
+
 
 if __name__ == "__main__":
     train_ebm()
